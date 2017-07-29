@@ -56,7 +56,18 @@ def parse(text: str) -> Dict[str, str]:
     return output
 
 
-class Editor(Row):
+class Selector(Select):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.opt1 = Option(parent=self, value='html')
+        self.opt1.textContent = 'HTML'
+        self.opt2 = Option(parent=self, value='raw_html')
+        self.opt2.textContent = 'Raw HTML'
+        self.opt3 = Option(parent=self, value='rst')
+        self.opt3.textContent = 'RST'
+
+
+class App(Row):
     def __init__(self) -> None:
         super().__init__()
         self.doc = get_document()
@@ -72,15 +83,10 @@ class Editor(Row):
             Span('Output Format: '),
             style='text-align: right;',
         ))
+
         self.selector_col = Col6(parent=self.selector_row)
-        self.output_selector = Select(parent=self.selector_col)
-        self.opt1 = Option(parent=self.output_selector, value='html')
-        self.opt1.textContent = 'HTML'
-        self.opt2 = Option(parent=self.output_selector, value='raw_html')
-        self.opt2.textContent = 'Raw HTML'
-        self.opt3 = Option(parent=self.output_selector, value='rst')
-        self.opt3.textContent = 'RST'
-        self.output_selector.addEventListener('change', self.preview)
+        self.selector = Selector(parent=self.selector_col)
+        self.selector.addEventListener('change', self.preview)
 
         self.viewer_row = Row()
         self.viewer = Col12(parent=self.viewer_row)
@@ -103,14 +109,14 @@ class Editor(Row):
         self.viewer.innerHTML = output['html_body']
 
     def update(self, text: str) -> None:
-        if self.output_selector.value == self.opt3.value:
+        if self.selector.value == self.selector.opt3.value:
             self.viewer.replaceChild(
                 Pre(parse2rst(text)),
                 self.viewer.firstChild
             )
         else:
             html = parse(text)['html_body']
-            if self.output_selector.value == self.opt2.value:
+            if self.selector.value == self.selector.opt2.value:
                 self.viewer.replaceChild(
                     Pre(html),
                     self.viewer.firstChild
@@ -132,7 +138,7 @@ def sample_page() -> Div:
                style='text-align: center;')
     app.appendChild(title)
     app.appendChild(Hr())
-    app.appendChild(Editor())
+    app.appendChild(App())
     return app
 
 
