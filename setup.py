@@ -12,7 +12,8 @@ with open(path.join(basedir, 'README.rst')) as readme_file:
 requirements = [
     'wdom',
     'm2r',
-    'docutils'
+    'docutils',
+    'pygments',
 ]
 
 setup(
