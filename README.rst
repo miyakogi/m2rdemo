@@ -7,7 +7,7 @@ M2R Demo Editor
 
 M2R is a markdown to reStructuredText (reST) converter, but it enables write both
 markdown and reST in a single file, **directly**.
-Ant M2R also supports sphinx as its extension.
+M2R also supports sphinx as its extension.
 
 This demo-editor is made to easily experience M2R format.
 
