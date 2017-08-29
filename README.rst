@@ -43,6 +43,11 @@ used instead of browser.
 
 Change ``qt5`` depending on your platform. Details see `pywebview's document <https://github.com/r0x0r/pywebview#installation>`_.
 
+Screenshot
+----------
+
+.. image:: https://raw.githubusercontent.com/wiki/miyakogi/m2rdemo/images/preview.png
+
 Credits
 ---------
 
